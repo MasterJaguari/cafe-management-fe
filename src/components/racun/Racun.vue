@@ -4,7 +4,7 @@
       <div v-if="data !== null">
           <StavkaRacuna v-for="stavka in racun" :data="stavka" :key="stavka.id" @click="removeStavka(stavka.id)"/>
       </div>
-      <h3 class="text-end">Za plaćanje: {{zaPlacanje}} din</h3>
+      <h3 class="text-end">Za plaćanje: <span>{{zaPlacanje}}</span> din</h3>
       <div class="text-end">
       <button class="btn1" @click="platiRacun" v-if="racun.length > 0">Plati</button>
       </div>
@@ -33,8 +33,8 @@ export default {
     },
     methods: {
         async fetchStavkeIspis(){
-            const res = await fetch('http://127.0.0.1:8000/api/meni')
-            const data =  await res.json();
+            const res = await axios.get('http://127.0.0.1:8000/api/meni');
+            const data =  await res.data;
             this.stavkeIspis = data;
             },
         platiRacun(){
